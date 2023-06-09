@@ -1,4 +1,3 @@
-// go mod init matar.com/dndcli
 package main
 
 import (
@@ -7,8 +6,6 @@ import (
 	"log"
 	"math/rand"
 	"regexp"
-	"sort"
-	"strconv"
 	"time"
 )
 
@@ -26,7 +23,9 @@ func main() {
 
 	if matched {
 		//diceSides := (*dice)[1:] // we have to derefernce first, *dice won't work
-		rolls := rollDice(dice, numRoll) // we're passing the pointer, we don't have to derefernce.
+
+		rolls := rollDice(dice, numRoll)
+		// we're passing the pointer, we don't have to derefernce.
 		//don't deference it until you need it.. memeory saving technici
 		printDice(rolls)
 
@@ -45,44 +44,4 @@ func main() {
 	} else {
 		log.Fatal("Imporaor format dice dx")
 	}
-	//fmt.Printf("You chose a %s.\n", *dice)
-}
-
-func rollDice(dice *string, times *int) []int {
-	var rolls []int
-
-	diceSides := (*dice)[1:] // we have to derefernce first, *dice won't work
-	d, err := strconv.Atoi(diceSides)
-
-	if err != nil {
-		log.Fatal(err)
-	}
-	for i := 0; i < *times; i++ {
-		rolls = append(rolls, rand.Intn(d)+1)
-	}
-	return rolls
-}
-
-func printDice(rolls []int) {
-	for i, dice := range rolls {
-		fmt.Printf("Roll %d was %d\n", i+1, dice)
-	}
-}
-
-func sumDice(rolls []int) int {
-	sum := 0
-	for _, dice := range rolls {
-		sum += dice
-	}
-	return sum
-}
-
-func rollWithadvantage(rolls []int) int {
-	sort.Ints(rolls)
-	return rolls[len(rolls)-1]
-}
-
-func rollWithDisadvantage(rolls []int) int {
-	sort.Ints(rolls)
-	return rolls[0]
 }

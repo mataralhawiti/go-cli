@@ -1,2 +1,8 @@
+#
+go mod init matar.com/dndcli
+
 goreleaser init
 goreleaser release --snapshot --clean
+
+# run
+go run .\main.go -d "d7" -n 2 -s true
